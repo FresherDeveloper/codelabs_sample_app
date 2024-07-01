@@ -11,6 +11,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   ProductBloc(this.signInUseCase)
       : super(const ProductState(isLoading: false, dataList: [])) {
     on<FetchDataRequested>(_onFetchDataRequested);
+     on<FetchImageDetailsRequested>(_onFetchImageDetailsRequested);
   }
 
   Future<void> _onFetchDataRequested(
@@ -19,6 +20,17 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     try {
       final dataList = await signInUseCase.fetchData();
       emit(state.copyWith(isLoading: false, dataList: dataList));
+    } catch (e) {
+      emit(state.copyWith(isLoading: false, error: e.toString()));
+    }
+  }
+
+  Future<void> _onFetchImageDetailsRequested(
+      FetchImageDetailsRequested event, Emitter<ProductState> emit) async {
+    emit(state.copyWith(isLoading: true, error: null));
+    try {
+      final imageDetails = await signInUseCase.fetchImageDetails(event.categoryId);
+      emit(state.copyWith(isLoading: false, dataList: imageDetails));
     } catch (e) {
       emit(state.copyWith(isLoading: false, error: e.toString()));
     }

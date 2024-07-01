@@ -35,4 +35,18 @@ class SignInUseCase {
       throw Exception('Failed to load data');
     }
   }
+
+   Future<List<dynamic>> fetchImageDetails(String categoryId) async {
+    final response = await http.get(
+      Uri.parse(
+          'https://coinoneglobal.in/teresa_trial/webtemplate.asmx/FnGetTemplateSubCategoryList?PrmCmpId=1&PrmBrId=2&PrmCategoryId=$categoryId'),
+    );
+    if (response.statusCode == 200) {
+      final jsonData = json.decode(response.body);
+
+      return jsonData as List<dynamic>;
+    } else {
+      throw Exception('Failed to load data');
+    }
+  }
 }

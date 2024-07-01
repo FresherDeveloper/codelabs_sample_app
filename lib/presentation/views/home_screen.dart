@@ -90,17 +90,17 @@ class _MyHomePageState extends State<MyHomePage> {
 
                 return GestureDetector(
                   onTap: () {
-                    // Navigator.pushNamed(
-                    //   context,
-                    //   '/detail',
-                    //   arguments: item["id"],
-                    // );
-                    Navigator.push(
+                    Navigator.pushNamed(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) => DetailScreen(item: item),
-                      ),
+                      '/detail',
+                      arguments: item["Id"],
                     );
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => DetailScreen(item: item),
+                    //   ),
+                    // );
                   },
                   child: Card(
                     child: Column(
